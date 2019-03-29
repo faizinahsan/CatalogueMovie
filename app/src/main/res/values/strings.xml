@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CatalogueMovie</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="dashboard">Selamat datang di halaman Dashboard</string>
+    <string name="home">Selamat datang di halaman Home</string>
+    <string name="notifications">Selamat datang di halaman Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="rating">Rating</string>
+    <string name="release_date">Release Date</string>
+    <string name="more_info">More</string>
+
+    <string name="favorite_movie">Movies</string>
+    <string name="favorite_tv">TV</string>
+</resources>
