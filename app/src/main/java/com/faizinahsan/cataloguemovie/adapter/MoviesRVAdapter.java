@@ -11,10 +11,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+//import com.bumptech.glide.Glide;
+//import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.faizinahsan.cataloguemovie.DetailActivity;
 import com.faizinahsan.cataloguemovie.R;
+import com.faizinahsan.cataloguemovie.database.AppDatabase;
 import com.faizinahsan.cataloguemovie.model.Movies;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 public class MoviesRVAdapter extends RecyclerView.Adapter<MoviesRVAdapter.MoviesVH> {
     ArrayList<Movies> movies = new ArrayList<>();
     Context context;
+
     private static final String IMG_BASE_URL = "http://image.tmdb.org/t/p/w500";
 
     public MoviesRVAdapter(Context context) {

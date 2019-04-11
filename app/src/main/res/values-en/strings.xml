@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CatalogueMovie</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Movie</string>
+    <string name="title_dashboard">TV Shows</string>
+    <string name="title_notifications">Favorite</string>
 
     <string name="dashboard">Selamat datang di halaman Dashboard</string>
     <string name="home">Selamat datang di halaman Home</string>
@@ -19,6 +20,6 @@
     <string name="favorite_tv">TV</string>
     <string name="add_to_favorite">Add To Favorite</string>
     <string name="remove_from_favorite">Remove From Favorite</string>
-    <string name="change_language_settings">Change Language Settings</string>
+    <string name="change_language_settings">Change language settings</string>
 
 </resources>

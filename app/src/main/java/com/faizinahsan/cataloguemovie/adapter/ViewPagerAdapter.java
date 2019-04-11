@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.faizinahsan.cataloguemovie.R;
-import com.faizinahsan.cataloguemovie.fragment.MoviesFavoriteFragment;
+import com.faizinahsan.cataloguemovie.fragment.MovieFavoriteFragment;
 import com.faizinahsan.cataloguemovie.fragment.TVFavoriteFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -21,7 +21,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int i) {
         if (i == 0){
-            return new MoviesFavoriteFragment();
+            return new MovieFavoriteFragment();
         }else {
             return new TVFavoriteFragment();
         }
