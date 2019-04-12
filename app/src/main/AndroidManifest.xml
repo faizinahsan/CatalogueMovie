@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.faizinahsan.cataloguemovie">
-
+    
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <permission android:name="com.faizinahsan.cataloguemovie.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.faizinahsan.cataloguemovie.WRITE_DATABASE" android:protectionLevel="normal"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="com.faizinahsan.cataloguemovie"
+            android:name=".provider.MovieFavProvider"
+            android:exported="true"
+            android:readPermission="com.faizinahsan.cataloguemovie.READ_DATABASE"
+            android:writePermission="com.faizinahsan.cataloguemovie.WRITE_DATABASE"/>
     </application>
 
 </manifest>
