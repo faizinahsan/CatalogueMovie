@@ -3,6 +3,7 @@ package com.faizinahsan.cataloguemovie.adapter;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,17 +52,20 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+//        if(mCursor.moveToPosition(i)){
+//            viewHolder.movieTitle.setText(mCursor.getColumnIndexOrThrow(MovieFavorite.COLUMN_NAME));
+//        }
         viewHolder.movieTitle.setText(movieFavorites.get(i).getTitle());
         Glide.with(context).load(IMG_BASE_URL + movieFavorites.get(i).getImage()).apply(new RequestOptions().override(350,350)).into(viewHolder.moviePoster);
 
         viewHolder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MovieFavorite mv =db.movieDAO().selectSingleMovieFav(movieFavorites.get(i).getId());
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.CODE_TAG_DETAIL,3);
-                intent.putExtra(DetailActivity.MOVIE_TAG_DETAIL,mv);
-                context.startActivity(intent);
+//                MovieFavorite mv =db.movieDAO().selectSingleMovieFav(movieFavorites.get(i).getId());
+//                Intent intent = new Intent(context, DetailActivity.class);
+//                intent.putExtra(DetailActivity.CODE_TAG_DETAIL,3);
+//                intent.putExtra(DetailActivity.MOVIE_TAG_DETAIL,mv);
+//                context.startActivity(intent);
             }
         });
 

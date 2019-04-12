@@ -3,27 +3,51 @@ package com.faizinahsan.cataloguemovie.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
 
 @Entity(tableName = "tmovie")
 public class MovieFavorite implements Parcelable {
+    //Name of the ID
+    public static final String COLUMN_ID= BaseColumns._ID;
+    public static final String COLUMN_NAME = "title";
+    public static final String COLUMN_IMAGE = "image";
+    public static final String COLUMN_ID_MOVIE = "id_movie";
+    public static final String COLUMN_OVERVIEW = "overview";
     @PrimaryKey(autoGenerate = true)
-    int id;
-    @ColumnInfo(name = "title")
+    @ColumnInfo(index = true,name = COLUMN_ID)
+    long id;
+
+    @ColumnInfo(name = COLUMN_NAME)
     String title;
-    @ColumnInfo(name = "image")
+    @ColumnInfo(name = COLUMN_IMAGE)
     String image;
-    @ColumnInfo(name = "id_movie")
+    @ColumnInfo(name = COLUMN_ID_MOVIE)
     String id_movie;
-    @ColumnInfo(name = "overview")
+    @ColumnInfo(name = COLUMN_OVERVIEW)
     String overview;
 
-    public int getId() {
+    public static MovieFavorite fromContentValues(ContentValues values) {
+        final MovieFavorite movieFavorite = new MovieFavorite();
+        if (values.containsKey(COLUMN_ID)) {
+//            movieFavorite.id = values.getAsLong(COLUMN_ID);
+            movieFavorite.setId(values.getAsLong(COLUMN_ID));
+        }
+        if (values.containsKey(COLUMN_NAME)) {
+//            movieFavorite.title = values.getAsString(COLUMN_NAME);
+            movieFavorite.setTitle(values.getAsString(COLUMN_NAME));
+        }
+        return movieFavorite;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -66,7 +90,7 @@ public class MovieFavorite implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeLong(this.id);
         dest.writeString(this.title);
         dest.writeString(this.image);
         dest.writeString(this.id_movie);
@@ -77,7 +101,7 @@ public class MovieFavorite implements Parcelable {
     }
 
     protected MovieFavorite(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readLong();
         this.title = in.readString();
         this.image = in.readString();
         this.id_movie = in.readString();
@@ -95,4 +119,19 @@ public class MovieFavorite implements Parcelable {
             return new MovieFavorite[size];
         }
     };
+    public MovieFavorite(Cursor cursor){
+        this.id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID));
+        this.title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+        this.image = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE));
+        this.overview = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OVERVIEW));
+        this.overview = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID_MOVIE));
+    }
+
+    public MovieFavorite(long id, String title, String image, String id_movie, String overview) {
+        this.id = id;
+        this.title = title;
+        this.image = image;
+        this.id_movie = id_movie;
+        this.overview = overview;
+    }
 }
