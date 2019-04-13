@@ -27,6 +27,12 @@
             android:exported="true"
             android:readPermission="com.faizinahsan.cataloguemovie.READ_DATABASE"
             android:writePermission="com.faizinahsan.cataloguemovie.WRITE_DATABASE"/>
+        <provider
+            android:authorities="com.faizinahsan.cataloguemovie.tv"
+            android:name=".provider.TvFavProvider"
+            android:exported="true"
+            android:readPermission="com.faizinahsan.cataloguemovie.READ_DATABASE"
+            android:writePermission="com.faizinahsan.cataloguemovie.WRITE_DATABASE"/>
     </application>
 
 </manifest>

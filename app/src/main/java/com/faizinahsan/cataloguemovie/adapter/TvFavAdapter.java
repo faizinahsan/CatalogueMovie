@@ -15,25 +15,25 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.faizinahsan.cataloguemovie.DetailActivity;
 import com.faizinahsan.cataloguemovie.R;
-import com.faizinahsan.cataloguemovie.model.MovieFav;
+import com.faizinahsan.cataloguemovie.model.TvFav;
 
 import java.util.ArrayList;
 
-public class MovieFavAdapter extends RecyclerView.Adapter<MovieFavAdapter.ViewHolder> {
+public class TvFavAdapter extends RecyclerView.Adapter<TvFavAdapter.ViewHolder> {
+    ArrayList<TvFav> tvFavs = new ArrayList<>();
     Context context;
-    ArrayList<MovieFav> movieFavs = new ArrayList<>();
     private static final String IMG_BASE_URL = "http://image.tmdb.org/t/p/w500";
 
-    public MovieFavAdapter(Context context) {
+    public TvFavAdapter(Context context) {
         this.context = context;
     }
 
-    public ArrayList<MovieFav> getMovieFavs() {
-        return movieFavs;
+    public ArrayList<TvFav> getTvFavs() {
+        return tvFavs;
     }
 
-    public void setMovieFavs(ArrayList<MovieFav> movieFavs) {
-        this.movieFavs = movieFavs;
+    public void setTvFavs(ArrayList<TvFav> tvFavs) {
+        this.tvFavs = tvFavs;
     }
 
     @NonNull
@@ -45,14 +45,14 @@ public class MovieFavAdapter extends RecyclerView.Adapter<MovieFavAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        viewHolder.movieTitle.setText(movieFavs.get(i).getTitle());
-        Glide.with(context).load(IMG_BASE_URL + movieFavs.get(i).getImage()).apply(new RequestOptions().override(350,350)).into(viewHolder.moviePoster);
+        viewHolder.tvTitle.setText(tvFavs.get(i).getTitle());
+        Glide.with(context).load(IMG_BASE_URL + tvFavs.get(i).getImage()).apply(new RequestOptions().override(350,350)).into(viewHolder.tvPoster);
         viewHolder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.CODE_TAG_DETAIL,3);
-                intent.putExtra(DetailActivity.MOVIE_TAG_DETAIL,movieFavs.get(i));
+                intent.putExtra(DetailActivity.CODE_TAG_DETAIL,4);
+                intent.putExtra(DetailActivity.MOVIE_TAG_DETAIL,tvFavs.get(i));
                 context.startActivity(intent);
             }
         });
@@ -60,17 +60,17 @@ public class MovieFavAdapter extends RecyclerView.Adapter<MovieFavAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return movieFavs.size();
+        return tvFavs.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView movieTitle;
-        ImageView moviePoster;
+        TextView tvTitle;
+        ImageView tvPoster;
         Button btnMore;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            movieTitle = itemView.findViewById(R.id.title_container);
-            moviePoster = itemView.findViewById(R.id.poster_container);
+            tvTitle = itemView.findViewById(R.id.title_container);
+            tvPoster = itemView.findViewById(R.id.poster_container);
             btnMore = itemView.findViewById(R.id.more_info_btn);
         }
     }
