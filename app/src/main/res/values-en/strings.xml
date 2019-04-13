@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CatalogueMovie</string>
     <string name="title_home">Movie</string>
-    <string name="title_dashboard">Tv Shows</string>
+    <string name="title_dashboard">TV Shows</string>
     <string name="title_notifications">Favorite</string>
 
     <string name="dashboard">Selamat datang di halaman Dashboard</string>
