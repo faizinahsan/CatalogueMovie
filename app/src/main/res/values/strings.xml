@@ -17,4 +17,6 @@
 
     <string name="favorite_movie">Movies</string>
     <string name="favorite_tv">TV</string>
+    <string name="add_to_favorite">Add To Favorite</string>
+    <string name="remove_from_favorite">Remove From Favorite</string>
 </resources>
