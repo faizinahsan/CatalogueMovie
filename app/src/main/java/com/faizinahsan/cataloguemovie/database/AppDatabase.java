@@ -8,7 +8,7 @@ import com.faizinahsan.cataloguemovie.DAO.TvDAO;
 import com.faizinahsan.cataloguemovie.model.MovieFavorite;
 import com.faizinahsan.cataloguemovie.model.TvFavorite;
 
-@Database(entities = {MovieFavorite.class, TvFavorite.class},version = 3, exportSchema = false)
+@Database(entities = {MovieFavorite.class, TvFavorite.class},version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MovieDAO movieDAO();
     public abstract TvDAO tvDAO();

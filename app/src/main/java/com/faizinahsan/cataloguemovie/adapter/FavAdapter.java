@@ -57,11 +57,11 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         viewHolder.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MovieFavorite mv =db.movieDAO().selectSingleMovieFav(movieFavorites.get(i).getId());
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.CODE_TAG_DETAIL,3);
-                intent.putExtra(DetailActivity.MOVIE_TAG_DETAIL,mv);
-                context.startActivity(intent);
+//                MovieFavorite mv =db.movieDAO().selectSingleMovieFav(movieFavorites.get(i).getId());
+//                Intent intent = new Intent(context, DetailActivity.class);
+//                intent.putExtra(DetailActivity.CODE_TAG_DETAIL,3);
+//                intent.putExtra(DetailActivity.MOVIE_TAG_DETAIL,mv);
+//                context.startActivity(intent);
             }
         });
 

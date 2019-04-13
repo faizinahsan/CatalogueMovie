@@ -1,10 +1,13 @@
 package com.faizinahsan.cataloguemovie;
 
 import android.arch.persistence.room.Room;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Trace;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +21,7 @@ import com.faizinahsan.cataloguemovie.model.MovieFavorite;
 import com.faizinahsan.cataloguemovie.model.Movies;
 import com.faizinahsan.cataloguemovie.model.TVShows;
 import com.faizinahsan.cataloguemovie.model.TvFavorite;
+import com.faizinahsan.cataloguemovie.database.DatabaseContract.NoteColumns;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String IMG_BASE_URL = "http://image.tmdb.org/t/p/w500";
@@ -68,18 +72,28 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+    private void insertContentProvider(){
+        ContentValues values = new ContentValues();
+        values.put(NoteColumns.TITLE,movies.getOriginalTitle());
+        values.put(NoteColumns.IMAGE,movies.getPosterPath());
+        values.put(NoteColumns.OVERVIEW,movies.getOverview());
+        values.put(NoteColumns.ID_MOVIE,movies.getId());
+        getContentResolver().insert(NoteColumns.CONTENT_URI,values);
+    }
     private void getMovie(){
         movies = getIntent().getParcelableExtra(MOVIE_TAG_DETAIL);
         mvId = movies.getId();
+        String[] mProjection= {NoteColumns.ID_MOVIE};
+        String mSelection = NoteColumns.ID_MOVIE + " = ";
+        String[] mSelectionArgs ={String.valueOf(mvId)} ;
         titleContainer.setText(movies.getTitle());
         ratingContainer.setText(String.valueOf(movies.getVoteAverage()));
         dateContainer.setText(movies.getReleaseDate());
-        selectFromDb(mvId);
+//        selectFromDb(mvId);
         Glide.with(this).load(IMG_BASE_URL+movies.getPosterPath()).apply(new RequestOptions().override(350,350)).into(posterContainer);
-//        MovieFavorite mv =db.movieDAO().selectIdSingleMovieFav(String.valueOf(movies.getId()));
-//        if (mv != null){
-//            addToFavoriteBtn.setVisibility(View.GONE);
-//        }
+//        MovieFavorite mv =db.movieDAO().selectIdMovieFav(String.valueOf(movies.getId()));
+
+
     }
     private void getTVShows(){
         tvShows = getIntent().getParcelableExtra(MOVIE_TAG_DETAIL);
@@ -114,12 +128,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if (v.getId() == R.id.add_to_favorite_btn){
             if (code == 1){
-                MovieFavorite mv = new MovieFavorite();
-                mv.setTitle(movies.getTitle());
-                mv.setImage(movies.getPosterPath());
-                mv.setId_movie(String.valueOf(movies.getId()));
-                mv.setOverview(movies.getOverview());
-                insertDB(mv);
+//                MovieFavorite mv = new MovieFavorite();
+//                mv.setTitle(movies.getTitle());
+//                mv.setImage(movies.getPosterPath());
+//                mv.setId_movie(String.valueOf(movies.getId()));
+//                mv.setOverview(movies.getOverview());
+//                insertDB(mv);
+                insertContentProvider();
                 finish();
             }else if (code == 2){
                 TvFavorite tv = new TvFavorite();
@@ -132,13 +147,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             }
         } else if (v.getId() == R.id.remove_from_favorite_btn) {
             if (code==1){
-                deleteFromDb(mvId);
+//                deleteFromDb(mvId);
                 finish();
             }else if (code == 2){
                 deleteTvFavFromDb(tvId);
                 finish();
             }else if (code == 3){
-                deleteFromDb(mvId);
+//                deleteFromDb(mvId);
                 finish();
             }else{
                 deleteTvFavFromDb(tvId);
@@ -146,39 +161,39 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
-    private void insertDB(final MovieFavorite mv){
-        new AsyncTask<Void,Void,Long>(){
-
-            @Override
-            protected Long doInBackground(Void... voids) {
-                long status = db.movieDAO().insertMovieFavorite(mv);
-                return status;
-            }
-
-            @Override
-            protected void onPostExecute(Long status) {
-                Toast.makeText(DetailActivity.this, "add to favorite status row"+status, Toast.LENGTH_SHORT).show();
-            }
-        }.execute();
-    }
-    private void selectFromDb(final int mv){
-        new AsyncTask<Void,Void,MovieFavorite>(){
-
-            @Override
-            protected MovieFavorite doInBackground(Void... voids) {
-                MovieFavorite status = db.movieDAO().selectIdSingleMovieFav(String.valueOf(mv));
-                return status;
-            }
-
-            @Override
-            protected void onPostExecute(MovieFavorite movieFavorite) {
-                if (movieFavorite != null){
-                    addToFavoriteBtn.setVisibility(View.GONE);
-                    removeFromFavBtn.setVisibility(View.VISIBLE);
-                }
-            }
-        }.execute();
-    }
+//    private void insertDB(final MovieFavorite mv){
+//        new AsyncTask<Void,Void,Long>(){
+//
+//            @Override
+//            protected Long doInBackground(Void... voids) {
+//                long status = db.movieDAO().insertMovieFavorite(mv);
+//                return status;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Long status) {
+//                Toast.makeText(DetailActivity.this, "add to favorite status row"+status, Toast.LENGTH_SHORT).show();
+//            }
+//        }.execute();
+//    }
+//    private void selectFromDb(final int mv){
+//        new AsyncTask<Void,Void,MovieFavorite>(){
+//
+//            @Override
+//            protected MovieFavorite doInBackground(Void... voids) {
+//                MovieFavorite status = db.movieDAO().selectIdSingleMovieFav(String.valueOf(mv));
+//                return status;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(MovieFavorite movieFavorite) {
+//                if (movieFavorite != null){
+//                    addToFavoriteBtn.setVisibility(View.GONE);
+//                    removeFromFavBtn.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        }.execute();
+//    }
     private void selectTvFavFromDB(final int tv){
         new AsyncTask<Void, Void, TvFavorite>() {
             @Override
@@ -206,18 +221,18 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             }
         }.execute();
     }
-    private void deleteFromDb(final int mv){
-        new AsyncTask<Void,Void,MovieFavorite>(){
-
-            @Override
-            protected MovieFavorite doInBackground(Void... voids) {
-                MovieFavorite status = db.movieDAO().selectIdSingleMovieFav(String.valueOf(mv));
-                db.movieDAO().deleteBarang(status);
-
-                return status;
-            }
-        }.execute();
-    }
+//    private void deleteFromDb(final int mv){
+//        new AsyncTask<Void,Void,MovieFavorite>(){
+//
+//            @Override
+//            protected MovieFavorite doInBackground(Void... voids) {
+//                MovieFavorite status = db.movieDAO().selectIdSingleMovieFav(String.valueOf(mv));
+//                db.movieDAO().deleteBarang(status);
+//
+//                return status;
+//            }
+//        }.execute();
+//    }
     private void insertTVDB(final TvFavorite tvFavorite){
         new AsyncTask<Void,Void,Long>(){
 
@@ -233,6 +248,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(DetailActivity.this, "TV Shows Have been added row"+status, Toast.LENGTH_SHORT).show();
             }
         }.execute();
+    }
+    private void deleteContentProvider(){
+        int cursor = getContentResolver().delete(NoteColumns.CONTENT_URI,null,null);
     }
     @Override
     public boolean onSupportNavigateUp() {

@@ -2,6 +2,7 @@ package com.faizinahsan.cataloguemovie.fragment;
 
 
 import android.arch.persistence.room.Room;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import com.faizinahsan.cataloguemovie.R;
 import com.faizinahsan.cataloguemovie.adapter.FavAdapter;
 import com.faizinahsan.cataloguemovie.adapter.MoviesRVAdapter;
 import com.faizinahsan.cataloguemovie.database.AppDatabase;
+import com.faizinahsan.cataloguemovie.database.DatabaseContract;
+import com.faizinahsan.cataloguemovie.mappinghelper.MappingHelper;
 import com.faizinahsan.cataloguemovie.model.MovieFavorite;
 
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ public class MovieFavoriteFragment extends Fragment {
     private FavAdapter adapter;
     private ArrayList<MovieFavorite> movies = new ArrayList<>();
     private AppDatabase db;
-
+    private static final int LOADER_MOVIE = 1;
     public MovieFavoriteFragment() {
         // Required empty public constructor
     }
@@ -50,10 +53,16 @@ public class MovieFavoriteFragment extends Fragment {
         recyclerView = view.findViewById(R.id.favorite_movie_rv);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        movies.addAll(Arrays.asList(db.movieDAO().selectAllMoviesFavs()));
+//        movies.addAll(Arrays.asList(db.movieDAO().selectAllMoviesFavs()));
+//        getSupportLoaderManager().initLoader(LOADER_CHEESES, null, mLoaderCallbacks);
+
         adapter = new FavAdapter(getContext());
+        getDataFromContentProvider(adapter);
+    }
+    private void getDataFromContentProvider(FavAdapter adapter){
+        Cursor cursor = getContext().getContentResolver().query(DatabaseContract.NoteColumns.CONTENT_URI,null,null,null,null,null);
+        movies = MappingHelper.mapCursorToArrayList(cursor);
         adapter.setMovieFavorites(movies);
         recyclerView.setAdapter(adapter);
-
     }
 }

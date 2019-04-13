@@ -3,60 +3,71 @@ package com.faizinahsan.cataloguemovie.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.faizinahsan.cataloguemovie.database.DatabaseContract.NoteColumns;
+import com.faizinahsan.cataloguemovie.provider.MovieFavProvider;
 
-@Entity(tableName = "tmovie")
+@Entity(tableName = NoteColumns.TABLE_NAME)
 public class MovieFavorite implements Parcelable {
     @PrimaryKey(autoGenerate = true)
-    int id;
-    @ColumnInfo(name = "title")
+    @ColumnInfo(index = true,name = NoteColumns.ID)
+    long id;
+    @ColumnInfo(name =  NoteColumns.TITLE)
     String title;
-    @ColumnInfo(name = "image")
+    @ColumnInfo(name = NoteColumns.IMAGE)
     String image;
-    @ColumnInfo(name = "id_movie")
+    @ColumnInfo(name = NoteColumns.ID_MOVIE)
     String id_movie;
-    @ColumnInfo(name = "overview")
+    @ColumnInfo(name = NoteColumns.OVERVIEW)
     String overview;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public MovieFavorite(long id, String title, String image, String id_movie, String overview) {
         this.id = id;
+        this.title = title;
+        this.image = image;
+        this.id_movie = id_movie;
+        this.overview = overview;
+    }
+    //untuk mentransformasikan value dari insertData dari Detail Data yg bersifat ContentValues menjadi objek MovieFavorite sehingga dapat di masukan di table
+    public static MovieFavorite fromContentValues(ContentValues values) {
+        final MovieFavorite movieFavorite = new MovieFavorite();
+        if (values.containsKey(NoteColumns.ID)) {
+            movieFavorite.id = values.getAsLong(NoteColumns.ID);
+        }
+        if (values.containsKey(NoteColumns.TITLE)) {
+            movieFavorite.title = values.getAsString(NoteColumns.TITLE);
+        }
+        if (values.containsKey(NoteColumns.IMAGE)){
+            movieFavorite.image = values.getAsString(NoteColumns.IMAGE);
+        }
+        if (values.containsKey(NoteColumns.ID_MOVIE)){
+            movieFavorite.id_movie = values.getAsString(NoteColumns.OVERVIEW);
+        }
+        if (values.containsKey(NoteColumns.OVERVIEW)){
+            movieFavorite.overview = values.getAsString(NoteColumns.OVERVIEW);
+        }
+        return movieFavorite;
+    }
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getImage() {
         return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getId_movie() {
         return id_movie;
     }
 
-    public void setId_movie(String id_movie) {
-        this.id_movie = id_movie;
-    }
-
     public String getOverview() {
         return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
     }
 
     @Override
@@ -66,7 +77,7 @@ public class MovieFavorite implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeLong(this.id);
         dest.writeString(this.title);
         dest.writeString(this.image);
         dest.writeString(this.id_movie);
@@ -77,7 +88,7 @@ public class MovieFavorite implements Parcelable {
     }
 
     protected MovieFavorite(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readLong();
         this.title = in.readString();
         this.image = in.readString();
         this.id_movie = in.readString();
