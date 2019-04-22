@@ -16,4 +16,8 @@ public interface APIService {
     Call<MovieResponse> getAllMovies(@Query("api_key") String apiKey);
     @GET("tv/popular")
     Call<TVResponse> getAllTV(@Query("api_key") String apiKey);
+    @GET("search/movie")
+    Call<MovieResponse> searchMovie(@Query("query") String query, @Query("api_key") String apiKey);
+    @GET("search/tv")
+    Call<TVResponse> searchTv(@Query("query") String query, @Query("api_key") String apiKey);
 }
