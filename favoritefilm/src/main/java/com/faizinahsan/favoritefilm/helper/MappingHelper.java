@@ -1,17 +1,17 @@
-package com.faizinahsan.cataloguemovie.helper;
+package com.faizinahsan.favoritefilm.helper;
 
 import android.database.Cursor;
 
-import com.faizinahsan.cataloguemovie.model.MovieFav;
-import com.faizinahsan.cataloguemovie.model.TvFav;
+
+import com.faizinahsan.favoritefilm.model.MovieFav;
 
 import java.util.ArrayList;
 
-import static com.faizinahsan.cataloguemovie.helper.MovieContract.MovieColumns.ID;
-import static com.faizinahsan.cataloguemovie.helper.MovieContract.MovieColumns.ID_MOVIE;
-import static com.faizinahsan.cataloguemovie.helper.MovieContract.MovieColumns.IMAGE;
-import static com.faizinahsan.cataloguemovie.helper.MovieContract.MovieColumns.OVERVIEW;
-import static com.faizinahsan.cataloguemovie.helper.MovieContract.MovieColumns.TITLE;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.ID;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.ID_MOVIE;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.IMAGE;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.OVERVIEW;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.TITLE;
 
 public class MappingHelper {
     public static ArrayList<MovieFav> mapCursorToArrayList(Cursor notesCursor) {

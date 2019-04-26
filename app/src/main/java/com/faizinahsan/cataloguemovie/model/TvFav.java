@@ -4,13 +4,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.ID;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.ID_MOVIE;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.IMAGE;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.OVERVIEW;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.TITLE;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.getColumnInt;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.getColumnString;
+
 
 public class TvFav implements Parcelable {
     private int id;
@@ -28,11 +22,11 @@ public class TvFav implements Parcelable {
     }
 
     public TvFav(Cursor cursor) {
-        this.id = getColumnInt(cursor, ID);
-        this.title = getColumnString(cursor, TITLE);
-        this.overview = getColumnString(cursor, OVERVIEW);
-        this.image = getColumnString(cursor, IMAGE);
-        this.id_tv = getColumnInt(cursor,ID_MOVIE);
+//        this.id = getColumnInt(cursor, ID);
+//        this.title = getColumnString(cursor, TITLE);
+//        this.overview = getColumnString(cursor, OVERVIEW);
+//        this.image = getColumnString(cursor, IMAGE);
+//        this.id_tv = getColumnInt(cursor,ID_MOVIE);
     }
 
     public int getId() {

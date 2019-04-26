@@ -1,45 +1,47 @@
-package com.faizinahsan.cataloguemovie.provider;
+package com.faizinahsan.favoritefilm.provider;
+
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
-import com.faizinahsan.cataloguemovie.helper.MovieHelper;
-import com.faizinahsan.cataloguemovie.helper.TvHelper;
+import com.faizinahsan.favoritefilm.helper.MovieHelper;
 
-import static com.faizinahsan.cataloguemovie.helper.MovieContract.MovieColumns.CONTENT_URI;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.AUTHORITY;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.TABLE_NAME;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.AUTHORITY;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.CONTENT_URI;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.TABLE_NAME;
 
-public class TvFavProvider extends ContentProvider {
-    private static final int TV = 1;
-    private static final int TV_ID = 2;
+
+public class MovieFavProvider extends ContentProvider {
+    private static final int Movie = 1;
+    private static final int Movie_ID = 2;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    private TvHelper tvHelper;
+    private MovieHelper movieHelper;
     static {
         // content://com.dicoding.picodiploma.mynotesapp/note
-        sUriMatcher.addURI(AUTHORITY, TABLE_NAME, TV);
+        sUriMatcher.addURI(AUTHORITY, TABLE_NAME, Movie);
         // content://com.dicoding.picodiploma.mynotesapp/note/id
-        sUriMatcher.addURI(AUTHORITY, TABLE_NAME + "/#", TV_ID);
+        sUriMatcher.addURI(AUTHORITY, TABLE_NAME + "/#", Movie_ID);
     }
     @Override
     public boolean onCreate() {
-        tvHelper = TvHelper.getInstance(getContext());
+        movieHelper = MovieHelper.getInstance(getContext());
         return true;
     }
 
     @Override
-    public Cursor query(Uri uri,String[] projection,String selection,String[] selectionArgs,String sortOrder) {
-        tvHelper.open();
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        movieHelper.open();
         Cursor cursor;
         switch (sUriMatcher.match(uri)) {
-            case TV:
-                cursor = tvHelper.queryProvider();
+            case Movie:
+                cursor = movieHelper.queryProvider();
                 break;
-            case TV_ID:
-                cursor = tvHelper.queryByIdProvider(uri.getLastPathSegment());
+            case Movie_ID:
+                cursor = movieHelper.queryByIdProvider(uri.getLastPathSegment());
                 break;
             default:
                 cursor = null;
@@ -54,28 +56,31 @@ public class TvFavProvider extends ContentProvider {
     }
 
     @Override
-    public Uri insert( Uri uri,ContentValues values) {
-        tvHelper.open();
+    public Uri insert(Uri uri, ContentValues values) {
+        movieHelper.open();
         long added;
         switch (sUriMatcher.match(uri)) {
-            case TV:
-                added = tvHelper.insertProvider(values);
+            case Movie:
+                added = movieHelper.insertProvider(values);
                 break;
             default:
                 added = 0;
                 break;
         }
+        //Dicoding Version
+//        getContext().getContentResolver().notifyChange(CONTENT_URI, new MainActivity.DataObserver(new Handler(), getContext()));
+        //Other Reference
+//        getContext().getContentResolver().notifyChange(uri, null);
         return Uri.parse(CONTENT_URI + "/" + added);
-
     }
 
     @Override
     public int delete(Uri uri,String selection,String[] selectionArgs) {
-        tvHelper.open();
+        movieHelper.open();
         int deleted;
         switch (sUriMatcher.match(uri)) {
-            case TV_ID:
-                deleted = tvHelper.deleteProvider(uri.getLastPathSegment());
+            case Movie_ID:
+                deleted = movieHelper.deleteProvider(uri.getLastPathSegment());
                 break;
             default:
                 deleted = 0;
@@ -89,12 +94,12 @@ public class TvFavProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri,  ContentValues values,String selection, String[] selectionArgs) {
-        tvHelper.open();
+    public int update(Uri uri,ContentValues values, String selection,String[] selectionArgs) {
+        movieHelper.open();
         int updated;
         switch (sUriMatcher.match(uri)) {
-            case TV_ID:
-                updated = tvHelper.updateProvider(uri.getLastPathSegment(), values);
+            case Movie_ID:
+                updated = movieHelper.updateProvider(uri.getLastPathSegment(), values);
                 break;
             default:
                 updated = 0;

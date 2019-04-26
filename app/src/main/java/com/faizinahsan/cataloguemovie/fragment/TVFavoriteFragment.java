@@ -30,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.CONTENT_URI;
+//import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.CONTENT_URI;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,10 +65,10 @@ public class TVFavoriteFragment extends Fragment {
         recyclerView = view.findViewById(R.id.favorite_tv_rv);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        Cursor cursor = getContext().getContentResolver().query(CONTENT_URI,null,null,null,null);
-        ArrayList<TvFav> movieFavs = MappingHelper.mapTvCursorToArrayList(cursor);
+//        Cursor cursor = getContext().getContentResolver().query(CONTENT_URI,null,null,null,null);
+//        ArrayList<TvFav> movieFavs = MappingHelper.mapTvCursorToArrayList(cursor);
         adapter = new TvFavAdapter(getContext());
-        adapter.setTvFavs(movieFavs);
+//        adapter.setTvFavs(movieFavs);
         recyclerView.setAdapter(adapter);
     }
     //

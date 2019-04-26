@@ -1,4 +1,4 @@
-package com.faizinahsan.cataloguemovie.helper;
+package com.faizinahsan.favoritefilm.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,25 +7,27 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.ID;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.ID_MOVIE;
-import static com.faizinahsan.cataloguemovie.helper.TvContract.TvColumn.TABLE_NAME;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.ID;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.ID_MOVIE;
+import static com.faizinahsan.favoritefilm.helper.MovieContract.MovieColumns.TABLE_NAME;
 
 
-public class TvHelper {
+public class MovieHelper {
     private static final String DATABASE_TABLE = TABLE_NAME;
     private final MovieDatabaseHelper dataBaseHelper;
-    private static TvHelper INSTANCE;
+    private static MovieHelper INSTANCE;
+
     private SQLiteDatabase database;
 
-    public TvHelper(Context context) {
+    private MovieHelper(Context context) {
         dataBaseHelper = new MovieDatabaseHelper(context);
     }
-    public static TvHelper getInstance(Context context) {
+
+    public static MovieHelper getInstance(Context context) {
         if (INSTANCE == null){
             synchronized (SQLiteOpenHelper.class){
                 if (INSTANCE == null){
-                    INSTANCE = new TvHelper(context);
+                    INSTANCE = new MovieHelper(context);
                 }
             }
         }

@@ -44,12 +44,6 @@
             android:exported="true"
             android:readPermission="com.faizinahsan.cataloguemovie.READ_DATABASE"
             android:writePermission="com.faizinahsan.cataloguemovie.WRITE_DATABASE" />
-        <provider
-            android:name=".provider.TvFavProvider"
-            android:authorities="com.faizinahsan.cataloguemovie.tv"
-            android:exported="true"
-            android:readPermission="com.faizinahsan.cataloguemovie.READ_DATABASE"
-            android:writePermission="com.faizinahsan.cataloguemovie.WRITE_DATABASE" />
         <service
             android:name="com.faizinahsan.cataloguemovie.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />

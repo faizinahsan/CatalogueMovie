@@ -1,7 +1,6 @@
 package com.faizinahsan.cataloguemovie;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.faizinahsan.cataloguemovie.helper.TvContract;
 import com.faizinahsan.cataloguemovie.model.MovieFav;
 import com.faizinahsan.cataloguemovie.model.Movies;
 import com.faizinahsan.cataloguemovie.model.TVShows;
@@ -83,7 +81,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         ratingContainer.setText(String.valueOf(tvShows.getVoteAverage()));
         dateContainer.setText(tvShows.getFirstAirDate());
         Glide.with(this).load(IMG_BASE_URL+tvShows.getPosterPath()).apply(new RequestOptions().override(350,350)).into(posterContainer);
-        ifTVFav(id_tv);
+//        ifTVFav(id_tv);
     }
     private void getFavMNovie(){
         movieFav = getIntent().getParcelableExtra(MOVIE_TAG_DETAIL);
@@ -129,29 +127,20 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             removeFromFav.setVisibility(View.VISIBLE);
         }
     }
-    private void ifTVFav(int id){
-        Uri uri = TvContract.TvColumn.CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
-        Cursor cursor = getContentResolver().query(uri,null,null,null,null);
-        if (cursor.getCount() > 0){
-            addToFav.setVisibility(View.GONE);
-            removeFromFav.setVisibility(View.VISIBLE);
-        }
-    }
+
     private void insertTvFav(TVShows tvShows){
         ContentValues values = new ContentValues();
-        values.put(TvContract.TvColumn.ID_MOVIE,tvShows.getId());
-        values.put(TvContract.TvColumn.TITLE,tvShows.getName());
-        values.put(TvContract.TvColumn.OVERVIEW,tvShows.getOverview());
-        values.put(TvContract.TvColumn.IMAGE,tvShows.getPosterPath());
-        Uri uri = getContentResolver().insert(TvContract.TvColumn.CONTENT_URI, values);
+        values.put(ID_MOVIE,tvShows.getId());
+        values.put(TITLE,tvShows.getName());
+        values.put(OVERVIEW,tvShows.getOverview());
+        values.put(IMAGE,tvShows.getPosterPath());
+        Uri uri = getContentResolver().insert(CONTENT_URI, values);
+        Log.d("TAG","Message"+uri);
         if (uri != null) {
             Log.d("TAG", "Uri " + uri);
         }
     }
-    private void deleteTvFav(int id){
-        Uri uri = TvContract.TvColumn.CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
-        getContentResolver().delete(uri, null, null);
-    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -169,7 +158,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     deleteMovieFav(id_movie);
                     finish();
                 }else{
-                    deleteTvFav(id_tv);
+//                    deleteTvFav(id_tv);
                     finish();
                 }
                 break;

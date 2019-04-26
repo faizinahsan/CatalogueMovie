@@ -1,21 +1,21 @@
-package com.faizinahsan.cataloguemovie.helper;
+package com.faizinahsan.favoritefilm.helper;
 
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-public class TvContract {
-    public static final String AUTHORITY = "com.faizinahsan.cataloguemovie.tv";
+public final class MovieContract {
+    public static final String AUTHORITY = "com.faizinahsan.cataloguemovie";
     private static final String SCHEME = "content";
-    private TvContract(){}
+    private MovieContract(){}
 
-    public static final class TvColumn implements BaseColumns {
-        public static final String TABLE_NAME = "tvfav";
+    public static final class MovieColumns implements BaseColumns {
+        public static final String TABLE_NAME = "tmovie";
         public static final String ID = _ID;
         public static final String TITLE = "title";
         public static final String OVERVIEW = "overview";
         public static final String IMAGE = "image";
-        public static final String ID_MOVIE = "id_tv";
+        public static final String ID_MOVIE = "id_movie";
         public static final Uri CONTENT_URI = new Uri.Builder().scheme(SCHEME)
                 .authority(AUTHORITY)
                 .appendPath(TABLE_NAME)

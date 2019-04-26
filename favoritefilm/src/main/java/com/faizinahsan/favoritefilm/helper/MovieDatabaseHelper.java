@@ -1,4 +1,4 @@
-package com.faizinahsan.cataloguemovie.helper;
+package com.faizinahsan.favoritefilm.helper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
