@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">CatalogueMovie</string>
     <string name="title_home">Movie</string>
     <string name="title_dashboard">Tv Shows</string>
@@ -20,4 +20,7 @@
     <string name="add_to_favorite">Add To Favorite</string>
     <string name="remove_from_favorite">Remove From Favorite</string>
     <string name="change_language_settings">Change language settings</string>
+    <string name="appwidget_text" tools:ignore="ExtraTranslation">Catalogue Movie</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text" tools:ignore="MissingTranslation">NO DATA</string>
 </resources>
