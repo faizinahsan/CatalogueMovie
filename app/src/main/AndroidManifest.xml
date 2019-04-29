@@ -3,6 +3,10 @@
     package="com.faizinahsan.cataloguemovie">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <permission
         android:name="com.faizinahsan.cataloguemovie.READ_DATABASE"
@@ -50,6 +54,19 @@
         <service
             android:name=".StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <receiver
+            android:name=".notifications.DailyReciever"
+            android:enabled="true"
+            android:exported="true"
+            />
+        <receiver android:name=".notifications.TodayReminder"
+            android:enabled="true"
+            android:exported="false"
+            />
+        <receiver
+            android:name=".notifications.AlarmService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

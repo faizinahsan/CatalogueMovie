@@ -32,5 +32,10 @@
     <string name="release_key" tools:ignore="MissingTranslation">releaseKey</string>
     <string name="daily_summaries" tools:ignore="MissingTranslation">Will be reminded at 07:00 AM</string>
     <string name="release_summaries" tools:ignore="MissingTranslation">Will be notified When New Movies Come Out</string>
-    <string name="notification_settings">Notification Settings</string>
+    <string name="notification_settings" tools:ignore="MissingTranslation">Notification Settings</string>
+    <string name="daily_label" tools:ignore="MissingTranslation">Lets Check Catalogue Movie</string>
+    <string name="daily_notif_title" tools:ignore="MissingTranslation">Come on and check CatalogueMovie app</string>
+    <string name="daily_notif_summaires" tools:ignore="MissingTranslation">There will be new movies lets see what are they</string>
+
+    <string name="release_notif_label" tools:ignore="MissingTranslation">Check out what release TV shows Today</string>
 </resources>

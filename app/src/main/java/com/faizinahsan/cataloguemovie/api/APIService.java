@@ -20,4 +20,6 @@ public interface APIService {
     Call<MovieResponse> searchMovie(@Query("query") String query, @Query("api_key") String apiKey);
     @GET("search/tv")
     Call<TVResponse> searchTv(@Query("query") String query, @Query("api_key") String apiKey);
+    @GET("tv/airing_today")
+    Call<TVResponse> getTVAiringToday(@Query("api_key")String apiKey,@Query("language") String language,@Query("page")int page);
 }
