@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.faizinahsan.cataloguemovie.MainActivity;
+import com.faizinahsan.cataloguemovie.NotificationSettings;
 import com.faizinahsan.cataloguemovie.R;
 import com.faizinahsan.cataloguemovie.SearchActivity;
 import com.faizinahsan.cataloguemovie.adapter.MoviesRVAdapter;
@@ -161,6 +162,10 @@ public class MovieFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.action_search:
 
+                break;
+            case R.id.notification_settings:
+                Intent intent = new Intent(getContext(), NotificationSettings.class);
+                startActivity(intent);
                 break;
         }
         searchView.setOnQueryTextListener(queryTextListener);

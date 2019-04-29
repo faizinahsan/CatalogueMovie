@@ -11,4 +11,8 @@
         android:title="Search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/notification_settings"
+        android:title="@string/notification_settings"
+        app:showAsAction="never"/>
 </menu>

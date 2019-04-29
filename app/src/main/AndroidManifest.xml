@@ -18,6 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".NotificationSettings"></activity>
+
         <receiver android:name=".ImageBannerWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -44,8 +46,9 @@
             android:exported="true"
             android:readPermission="com.faizinahsan.cataloguemovie.READ_DATABASE"
             android:writePermission="com.faizinahsan.cataloguemovie.WRITE_DATABASE" />
+
         <service
-            android:name="com.faizinahsan.cataloguemovie.StackWidgetService"
+            android:name=".StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
