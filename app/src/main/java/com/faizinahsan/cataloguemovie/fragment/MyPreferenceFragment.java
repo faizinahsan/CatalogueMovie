@@ -7,11 +7,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
 
-import com.faizinahsan.cataloguemovie.NotificationSettings;
 import com.faizinahsan.cataloguemovie.R;
 import com.faizinahsan.cataloguemovie.notifications.AlarmService;
-import com.faizinahsan.cataloguemovie.notifications.DailyReciever;
-import com.faizinahsan.cataloguemovie.notifications.TodayReminder;
 
 public class MyPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
     private boolean DEFAULT_VALUE = false;
@@ -19,8 +16,6 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
     private String releaseNotif;
     private SwitchPreference dailyPreference;
     private SwitchPreference releasePreference;
-    private DailyReciever dailyReciever;
-    private TodayReminder todayReminder;
     private AlarmService alarmService;
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -35,8 +30,6 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
         releasePreference = (SwitchPreference) findPreference(releaseNotif);
         dailyPreference.setOnPreferenceChangeListener(this);
         releasePreference.setOnPreferenceChangeListener(this);
-        dailyReciever = new DailyReciever();
-         todayReminder = new TodayReminder();
          alarmService = new AlarmService();
     }
 
@@ -85,7 +78,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat implements Sh
         }
         if (key.equals(releaseNotif)){
             if (isOn){
-                alarmService.setRepeatingAlarm(getActivity(), AlarmService.TYPE_REPEATING,"15:51", getString(R.string.release_notif_label));
+                alarmService.setRepeatingAlarm(getActivity(), AlarmService.TYPE_REPEATING,"08:00", getString(R.string.release_notif_label));
 
                 Toast.makeText(getContext(), "Release Notif ON", Toast.LENGTH_SHORT).show();
             }else{
