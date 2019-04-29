@@ -14,6 +14,10 @@
     <string name="rating">Rating</string>
     <string name="release_date">Release Date</string>
     <string name="more_info">More</string>
+    <!--Notification-->
+    <string name="content_title">Content title</string>
+    <string name="content_text">Content text</string>
+    <string name="subtext">Sub text</string>
 
     <string name="favorite_movie">Movies</string>
     <string name="favorite_tv">TV</string>
@@ -23,4 +27,17 @@
     <string name="appwidget_text" tools:ignore="ExtraTranslation">Catalogue Movie</string>
     <string name="add_widget">Add widget</string>
     <string name="empty_text" tools:ignore="MissingTranslation">NO DATA</string>
+
+    <string name="on_daily_reminder">Turn on daily reminder</string>
+    <string name="off_daily_reminder">Turn off daily reminder</string>
+    <string name="on_movie_release_reminder">Turn on movie release daily reminder </string>
+    <string name="off_movie_release_reminder">Turn off movie release daily reminder </string>
+    <string name="notifications_title">Notifications</string>
+    <string name="key_today_reminder">key_today_reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="summary_daily_reminder">Turn on/off daily reminder. You will receive daily reminder at 7AM</string>
+    <string name="key_release_reminder">key_release_reminder</string>
+    <string name="release_reminder">New Movie Release Reminder</string>
+    <string name="summary_release_reminder">Turn on/off new movie release reminder. You will receive daily movie release info at 8AM</string>
+    <string name="message_daily" tools:ignore="MissingTranslation">Let\'s check Catalogue Movie to get new movies info</string>
 </resources>

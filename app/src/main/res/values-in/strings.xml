@@ -15,7 +15,11 @@
     <string name="rating">penilaian</string>
     <string name="release_date">Tanggal Rilis</string>
     <string name="more_info">Info Lebih</string>
-
+    <!--Notification-->
+    <string name="content_title">Content title</string>
+    <string name="content_text">Content text</string>
+    <string name="subtext">Sub text</string>
+    <string name="daily_reminder">Daily Reminder</string>
     <string name="favorite_movie">Film</string>
     <string name="favorite_tv">Acara TV</string>
     <string name="add_to_favorite">Tambah Ke Kesukaan</string>

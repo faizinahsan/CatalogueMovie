@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.faizinahsan.cataloguemovie.R;
 import com.faizinahsan.cataloguemovie.SearchActivity;
+import com.faizinahsan.cataloguemovie.SettingActivity;
 import com.faizinahsan.cataloguemovie.adapter.MoviesRVAdapter;
 import com.faizinahsan.cataloguemovie.adapter.TvRVAdapter;
 import com.faizinahsan.cataloguemovie.api.APIService;
@@ -157,7 +158,10 @@ public class TvShowsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_search:
-
+                break;
+            case R.id.settings_activity:
+                Intent intent = new Intent(getContext(), SettingActivity.class);
+                startActivity(intent);
                 break;
         }
         searchView.setOnQueryTextListener(queryTextListener);

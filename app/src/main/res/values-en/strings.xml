@@ -15,6 +15,10 @@
     <string name="rating">Rating</string>
     <string name="release_date">Release Date</string>
     <string name="more_info">More</string>
+    <!--Notification-->
+    <string name="content_title">Content title</string>
+    <string name="content_text">Content text</string>
+    <string name="subtext">Sub text</string>
 
     <string name="favorite_movie">Movies</string>
     <string name="favorite_tv">TV</string>
