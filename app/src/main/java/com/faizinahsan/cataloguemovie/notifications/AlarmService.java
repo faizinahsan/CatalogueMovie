@@ -1,6 +1,7 @@
 package com.faizinahsan.cataloguemovie.notifications;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -15,11 +17,17 @@ import android.util.Log;
 import com.faizinahsan.cataloguemovie.MainActivity;
 import com.faizinahsan.cataloguemovie.R;
 import com.faizinahsan.cataloguemovie.api.APIService;
+import com.faizinahsan.cataloguemovie.model.MovieResponse;
+import com.faizinahsan.cataloguemovie.model.Movies;
 import com.faizinahsan.cataloguemovie.model.TVResponse;
 import com.faizinahsan.cataloguemovie.model.TVShows;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -33,6 +41,8 @@ public class AlarmService extends BroadcastReceiver {
     public static final String TYPE_REPEATING = "RepeatingAlarm";
     public static final String EXTRA_MESSAGE = "message";
     public static final String EXTRA_TYPE = "type";
+    public static String CHANNEL_ID = "channel_01";
+    public static CharSequence CHANNEL_NAME = "calagouemovie channel";
 
     private final int NOTIF_ID_RELEASE = 100;
     private final int NOTIF_ID_REPEATING = 101;
@@ -80,6 +90,19 @@ public class AlarmService extends BroadcastReceiver {
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setSound(alarm);
 
+        /*
+Untuk android Oreo ke atas perlu menambahkan notification channel
+*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            /* Create or update. */
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            builder.setChannelId(CHANNEL_ID);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
         notificationManager.notify(notifId, builder.build());
     }
     public void setRepeatingAlarm(Context context, String type, String time, String message) {
@@ -89,7 +112,8 @@ public class AlarmService extends BroadcastReceiver {
         intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra(EXTRA_TYPE, type);
 
-        String timeArray[] = time.split(":");
+//        String timeArray[] = time.split(":");
+        String[] timeArray = time.split(":");
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
@@ -116,22 +140,35 @@ public class AlarmService extends BroadcastReceiver {
     public void getMovieRelease(final Context context, final int notifId) {
         initializeRetrofit();
         APIService service = retrofit.create(APIService.class);
-        Call<TVResponse> call = service.getTVAiringToday("0421fe7c9fd6d2048fb64bfca56e3819","en-US",1);
-        call.enqueue(new Callback<TVResponse>() {
+        Call<MovieResponse> call = service.getUpcommingMovie("0421fe7c9fd6d2048fb64bfca56e3819");
+        call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<TVResponse> call, Response<TVResponse> response) {
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
 //                tvShows = response.body().getResults();
-                ArrayList<TVShows> items = response.body().getResults();
+                ArrayList<Movies> items = response.body().getResults();
                 int index = new Random().nextInt(items.size());
 //                TVShows item = items.get(index);
-                String title = items.get(index).getName();
-                String message = items.get(index).getOverview();
-                ShowAlarmNotification(context,title,message,notifId);
+//                String title = items.get(index).getTitle();
+//                String message = items.get(index).getOverview();
+//                ShowAlarmNotification(context,title,message,notifId);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                Date date = new Date();
+                String currentDate = dateFormat.format(date);
+                Log.d("TAG","Date: "+currentDate);
+                for (int i = 0; i<items.size(); i++){
+                    String title = items.get(i).getTitle();
+                    String release_date =items.get(i).getReleaseDate();
+                    if (release_date.equals(currentDate)){
+                        String message = "Today Movie, "+title+" has released";
+                        ShowAlarmNotification(context,title,message,notifId);
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<TVResponse> call, Throwable t) {
-                Log.d("getTVAiringToday","onFaliure"+t.toString());
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+
             }
         });
     }

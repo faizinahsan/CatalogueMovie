@@ -46,6 +46,7 @@ public class MovieFavAdapter extends RecyclerView.Adapter<MovieFavAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+        viewHolder.getAdapterPosition();
         viewHolder.movieTitle.setText(movieFavs.get(i).getTitle());
         Glide.with(context).load(IMG_BASE_URL + movieFavs.get(i).getImage()).apply(new RequestOptions().override(350,350)).into(viewHolder.moviePoster);
         viewHolder.btnMore.setOnClickListener(new View.OnClickListener() {
